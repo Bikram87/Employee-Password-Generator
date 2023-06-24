@@ -35,8 +35,19 @@ function shuffle(input) {
   return stringArray.join("");
 }
 
+console.log(shuffle('Hello World'))
 
+function PasswordOptions() {
 
+  let passwordLength = prompt("Choose number of characters for your password");
+
+  console.log(`userInput: ${passwordLength}, type: ${typeof passwordLength}`);
+
+}
+
+function generatePassword(){
+  PasswordOptions()
+}
 
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
@@ -46,7 +57,6 @@ var generateBtn = document.querySelector("#generate");
 function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
-  var passwordCriteria = prompt("What would you like to change?")
 
   passwordText.value = password;
 
