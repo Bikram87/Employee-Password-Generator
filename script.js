@@ -3,15 +3,37 @@ let numbers = ['0','1','2','3','4','5','6','7','8','9']
 let lowerCaseLetters = ['a', 'b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 let upperCaseLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 let specialCharacters = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '[', ']', '{', '}', '|', '\\', ';', ':', '\'', '"', '<', '>', ',', '.', '/', '?', '`', '~']
+
 function chooseRandom (array) {
+  if (array && array.length) {
     let randomIndex = Math.floor(Math.random*(array.length-1))
-  return array[randomIndex]
+    return array[randomIndex];
+  } else {
+  return null;
+  }
 }
 
 
 
+function randomGenerator (max) {
+  return Math.floor(Math.random()*max);
+}
 
+function shuffle(input) {
 
+  let stringArray = input.split("")
+
+  console.log(stringArray);
+
+  for (let i= stringArray.length-1; i>=0; i--) {
+    let randomIndex = randomGenerator(stringArray.length);
+    console.log(`Switch chracter at index ${i} with character at index ${randomIndex}` )
+    let a = stringArray[i];
+    stringArray[i] - stringArray[randomIndex];
+    stringArray[randomIndex] = a;
+  }
+  return stringArray.join("");
+}
 
 
 
