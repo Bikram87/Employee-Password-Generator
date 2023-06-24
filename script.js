@@ -39,9 +39,24 @@ console.log(shuffle('Hello World'))
 
 function PasswordOptions() {
 
-  let passwordLength = prompt("Choose number of characters for your password");
+  let passwordLength = parseInt(prompt(("Choose number of characters for your password"), 10));
 
-  console.log(`userInput: ${passwordLength}, type: ${typeof passwordLength}`);
+  if (Number.isNaN(passwordLength)){
+    alert(`Please enter a Number`)
+    return null;
+  }
+ 
+  if (passwordLength < 8) {
+    alert ('Password length must be minimum 8 characters')
+    return null;
+  }
+  
+  if (passwordLength > 128) {
+    alert ('Password length must be less than 129 characters')
+    return null;
+  }
+  
+   console.log(`userInput: ${passwordLength}, type: ${typeof passwordLength}`);
 
 }
 
