@@ -37,7 +37,7 @@ function shuffle(input) {
 
 console.log(shuffle('Hello World'))
 
-function PasswordOptions() {
+function getPasswordOptions() {
 
   let passwordLength = parseInt(prompt(("Choose number of characters for your password"), 10));
 
@@ -52,17 +52,83 @@ function PasswordOptions() {
   }
   
   if (passwordLength > 128) {
-    alert ('Password length must be less than 129 characters')
+    alert ('Password length must be less than 129 characters.')
     return null;
   }
   
    console.log(`userInput: ${passwordLength}, type: ${typeof passwordLength}`);
 
+  let hasSpecialCharacters = confirm(
+    'Click OK to confirm including special characters.'
+   ); 
+  let hasNumericCharacters = confirm(
+    'Click OK to confirm including numeric characters.'
+   );
+
+  let hasLowerCaseCharacters = confirm(
+    'Click OK to confirm including lowercase characters.'
+   )
+
+   let hasUpperCaseCharacters = confirm(
+    'Click OK to confirm including uppercase characters.'
+   )
+
+   return {
+    passwordLength,
+    hasSpecialCharacters,
+    hasNumericCharacters,
+    hasLowerCaseCharacters,
+    hasUpperCaseCharacters,
+  }
 }
 
 function generatePassword(){
-  PasswordOptions()
+  let passwordOptions = getPasswordOptions();
+  return makePassword(passwordOptions);
 }
+
+function makePassword(passwordOptions){
+  if(!passwordOptions) {
+    return "Invalid Password Option";
+}
+
+ 
+  let availableCharacters = [];
+  let guaranteedCharacters = [];
+  let result = [];
+
+  if(passwordOptions.hasNumericCharacters){
+    availableCharacters = availableCharacters.concat(numbers);
+    guaranteedCharacters.push(randomSelector(numbers));
+  }
+
+  if (passwordOptions.hasLowerCaseCharacters){
+    availableCharacters = availableCharacters.concat(lowerCaseLetters);
+    guaranteedCharacters.push(randomSelector(lowerCaseLetters));
+  }
+
+  if (passwordOptions.hasUpperCaseCharacters){
+    availableCharacters = availableCharacters.concat(upperCaseLetters);
+    guaranteedCharacters.push(randomSelector(upperCaseLetters));
+  }
+
+  if (passwordOptions.hasSpecialCharacters){
+    availableCharacters = availableCharacters.concat(specialCharacters);
+    guaranteedCharacters.push(randomSelector(specialCharacters));
+  }
+
+  console.log(availableCharacters);
+  console.log(guaranteedCharacters);
+
+  result = result.concat(guaranteedCharacters);
+
+  for(i=0; i<passwordOptions.passwordLength - guaranteedCharacters.length; i++){
+    result.push(randomSelector(availableCharacters));
+  }
+
+  return shuffle(result.join(""));
+}
+
 
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
