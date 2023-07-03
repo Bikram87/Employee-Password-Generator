@@ -4,16 +4,14 @@ let lowerCaseLetters = ['a', 'b','c','d','e','f','g','h','i','j','k','l','m','n'
 let upperCaseLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 let specialCharacters = ['!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '+', '=', '[', ']', '{', '}', '|', '\\', ';', ':', '\'', '"', '<', '>', ',', '.', '/', '?', '`', '~']
 
-function chooseRandom (array) {
-  if (array && array.length) {
-    let randomIndex = Math.floor(Math.random*(array.length-1))
+function chooseRandom (inputArray) {
+  if (inputArray && inputArray.length) {
+    let randomIndex = randomGenerator(inputArray.length);
     return array[randomIndex];
   } else {
   return null;
   }
 }
-
-
 
 function randomGenerator (max) {
   return Math.floor(Math.random()*max);
@@ -27,7 +25,7 @@ function shuffle(input) {
 
   for (let i= stringArray.length-1; i>=0; i--) {
     let randomIndex = randomGenerator(stringArray.length);
-    console.log(`Switch chracter at index ${i} with character at index ${randomIndex}` )
+    console.log(`Switch character at index ${i} with character at index ${randomIndex}`)
     let a = stringArray[i];
     stringArray[i] - stringArray[randomIndex];
     stringArray[randomIndex] = a;
@@ -35,7 +33,7 @@ function shuffle(input) {
   return stringArray.join("");
 }
 
-console.log(shuffle('Hello World'))
+console.log(shuffle('Hello World'));
 
 function getPasswordOptions() {
 
@@ -99,22 +97,22 @@ function makePassword(passwordOptions){
 
   if(passwordOptions.hasNumericCharacters){
     availableCharacters = availableCharacters.concat(numbers);
-    guaranteedCharacters.push(randomSelector(numbers));
+    guaranteedCharacters.push(randomGenerator (numbers));
   }
 
   if (passwordOptions.hasLowerCaseCharacters){
     availableCharacters = availableCharacters.concat(lowerCaseLetters);
-    guaranteedCharacters.push(randomSelector(lowerCaseLetters));
+    guaranteedCharacters.push(randomGenerator (lowerCaseLetters));
   }
 
   if (passwordOptions.hasUpperCaseCharacters){
     availableCharacters = availableCharacters.concat(upperCaseLetters);
-    guaranteedCharacters.push(randomSelector(upperCaseLetters));
+    guaranteedCharacters.push(randomGenerator (upperCaseLetters));
   }
 
   if (passwordOptions.hasSpecialCharacters){
     availableCharacters = availableCharacters.concat(specialCharacters);
-    guaranteedCharacters.push(randomSelector(specialCharacters));
+    guaranteedCharacters.push(randomGenerator (specialCharacters));
   }
 
   console.log(availableCharacters);
@@ -123,7 +121,7 @@ function makePassword(passwordOptions){
   result = result.concat(guaranteedCharacters);
 
   for(i=0; i<passwordOptions.passwordLength - guaranteedCharacters.length; i++){
-    result.push(randomSelector(availableCharacters));
+    result.push(randomGenerator (availableCharacters));
   }
 
   return shuffle(result.join(""));
